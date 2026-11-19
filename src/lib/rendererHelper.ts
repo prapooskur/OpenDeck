@@ -162,6 +162,8 @@ export async function renderImage(
 		context.drawImage(alertImage, 0, 0, canvas.width, canvas.height);
 	}
 
+	context.restore();
+	
 	// Make the image smaller while the button is pressed.
 	if (pressed) {
 		const smallCanvas = document.createElement("canvas");
@@ -175,8 +177,6 @@ export async function renderImage(
 			context.drawImage(smallCanvas, 0, 0);
 		}
 	}
-
-	context.restore();
 
 	if (active && slotContext) setTimeout(async () => await invoke("update_image", { context: slotContext, image: canvas.toDataURL("image/jpeg") }), 10);
 }
